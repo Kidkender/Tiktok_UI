@@ -4,9 +4,12 @@
   justify-content: center;
   min-width: 100px;
   padding: 9px 16px;
-  font-size: 1.6rem;
   border-radius: 4px;
+  font-size: 1.2rem;
   font-weight: 700;
+
+  font-family: ProximaNova;
+  cursor: pointer;
   background-color: transparent;
   border: 1px solid transparent;
   user-select: none;
@@ -24,6 +27,11 @@
 .icon + .title,
 .title + .icon {
   margin-left: 8px;
+}
+.icon {
+  display: inline-block;
+  width: 24px;
+  text-align: center;
 }
 
 .rounded {

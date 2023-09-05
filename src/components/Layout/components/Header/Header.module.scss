@@ -15,6 +15,7 @@
 .inner {
   height: 100%;
   width: var(--default-layout-width);
+  padding: 0 var(--default-layout-horizontal-spacer);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,6 +24,9 @@
 .logo {
 }
 
+.logo img {
+  padding-top: 10px;
+}
 .search-titles {
   padding: 5px 12px;
   font-size: 1.4rem;
@@ -93,4 +97,36 @@
   &:active {
     background-color: rgba($color: #222435, $alpha: 0.06);
   }
+}
+
+//action
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.more-btn {
+  font-size: 2rem;
+  margin-left: 28px;
+  background-color: transparent;
+  color: var(--white);
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.action-btn {
+  background-color: transparent;
+  color: #fbfbfb;
+  font-size: 1.6rem;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  margin-left: 12px;
+  border-radius: 50%;
+  cursor: pointer;
 }
