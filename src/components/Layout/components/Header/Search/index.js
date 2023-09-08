@@ -29,7 +29,7 @@ function Search() {
     }
     setloading(true);
     request
-      .get(`/api/users/search`, {
+      .get("/api/users/search", {
         params: {
           q: debounced,
           type: "less",
