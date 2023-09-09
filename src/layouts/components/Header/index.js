@@ -1,7 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
-import images from "~/assets/images";
 import {
   faCircleQuestion,
   faCoins,
@@ -11,18 +9,20 @@ import {
   faKeyboard,
   faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
-
 import Tippy from "@tippyjs/react";
+import { faUber } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import Button from "~/components/Button";
+import images from "~/assets/images";
 import Menu from "~/components/Popper/Menu";
 import "tippy.js/dist/tippy.css"; // optional
-import { faUber } from "@fortawesome/free-brands-svg-icons";
 
 import Image from "~/components/Image";
 import { MessageIcon, InboxIcon, UploadIcon } from "~/components/Icon/index";
 import Search from "./Search";
-
+import config from "~/config";
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -43,13 +43,102 @@ const MENU_ITEMS = [
           code: "vi",
           title: "Tiếng Việt",
         },
+        {
+          type: "language",
+          code: "china",
+          title: "中文",
+        },
+        {
+          type: "language",
+          code: "jpn",
+          title: "日本語",
+        },
+        {
+          type: "language",
+          code: "fr",
+          title: "Français",
+        },
+        {
+          type: "language",
+          code: "es",
+          title: "Español",
+        },
+
+        {
+          type: "language",
+          code: "kr",
+          title: "한국인",
+        },
+        {
+          type: "language",
+          code: "rusia",
+          title: "Русский",
+        },
+
+        {
+          type: "language",
+          code: "ger",
+          title: "Germany",
+        },
+        {
+          type: "language",
+          code: "Italy",
+          title: "Italy",
+        },
+        {
+          type: "language",
+          code: "malay",
+          title: "Malaysia",
+        },
+        {
+          type: "language",
+          code: "indo",
+          title: "Indonesia",
+        },
+
+        {
+          type: "language",
+          code: "Lao",
+          title: "Lao",
+        },
+        {
+          type: "language",
+          code: "Latin",
+          title: "Latin",
+        },
+        {
+          type: "language",
+          code: "arabic",
+          title: "Arabic",
+        },
+        {
+          type: "language",
+          code: "romani",
+          title: "Romanian",
+        },
+
+        {
+          type: "language",
+          code: "thai",
+          title: "Thai lan",
+        },
+        {
+          type: "language",
+          code: "can",
+          title: "Canada",
+        },
+        {
+          type: "language",
+          code: "turkmen",
+          title: "Turkmen",
+        },
       ],
     },
   },
   {
     icon: <FontAwesomeIcon icon={faCircleQuestion} />,
     title: "Feedback and help",
-    to: "/feeback",
+    to: "/feedback",
   },
 
   {
@@ -94,9 +183,11 @@ function Header() {
   return (
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
-        <div className={cx("logo")}>
+        <Link to={config.routes.home} className={cx("logo-link")}>
           <img src={images.logo} alt="logo" />
-        </div>
+        </Link>
+
+        {/* <div className={cx("logo")}></div> */}
         {/* Search */}
         <Search />
 

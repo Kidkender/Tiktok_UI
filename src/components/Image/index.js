@@ -3,7 +3,6 @@ import images from "~/assets/images";
 import styles from "./Image.module.scss";
 import classNames from "classnames";
 
-console.log(images.noImage);
 function Image(
   { src, alt, className, fallback: customFallback = images.noImage, ...props },
   ref
