@@ -10,7 +10,12 @@ const cx = classNames.bind(styles);
 
 const defaultFunction = () => {};
 
-function Menu({ children, items = [], onChange = defaultFunction }) {
+function Menu({
+  children,
+  items = [],
+  hideOnClick = false,
+  onChange = defaultFunction,
+}) {
   const [history, setHistory] = useState([{ data: items }]);
 
   const current = history[history.length - 1];
@@ -39,6 +44,7 @@ function Menu({ children, items = [], onChange = defaultFunction }) {
       delay={[0, 500]}
       offset={[12, 8]}
       interactive
+      hideOnClick={hideOnClick}
       placement="bottom-end"
       render={(attrs) => (
         <div className={cx("menu-list")} tabIndex={1} {...attrs}>
@@ -51,7 +57,7 @@ function Menu({ children, items = [], onChange = defaultFunction }) {
                 }}
               />
             )}
-            {renderItems()}
+            <div className={cx("menu-body")}>{renderItems()}</div>{" "}
           </PopperWrapper>
         </div>
       )}
