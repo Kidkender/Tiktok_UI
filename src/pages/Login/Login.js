@@ -1,22 +1,22 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { useEffect, useState } from "react";
-import Sidebar from "~/layouts/components/Sidebar";
-import "./index.css";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { unwrapResult } from "@reduxjs/toolkit";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { useEffect, useState } from "react";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { useDispatch } from "react-redux";
+import { getMe } from "~/app/userSlice";
 import firebasecf from "~/config/firebase";
+import Sidebar from "~/layouts/components/Sidebar";
+import "./index.css";
 
 firebase.initializeApp(firebasecf);
 
 // Configure FirebaseUI.
 const uiConfig = {
-  // Popup signin flow rather than redirect flow.
   signInFlow: "popup",
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   signInSuccessUrl: "/",
   // We will display Google and Facebook as auth providers.
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
@@ -24,15 +24,28 @@ const uiConfig = {
 function Login(props) {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   const email = document.getElementById("email");
+  const dispatch = useDispatch();
   const password = document.getElementById("password");
 
   useEffect(() => {
     const unregisterAuthObserver = firebase
       .auth()
-      .onAuthStateChanged((user) => {
+      .onAuthStateChanged(async (user) => {
+        if (!user) {
+          return;
+        }
         setIsSignedIn(!!user);
+
+        const action = getMe();
+        const actionResult = await dispatch(action);
+        const currentUser = unwrapResult(actionResult);
+
+        console.log("Logged in user: " + currentUser);
+        // console.log("Logged in user: " + user.displayName);
+        // const token = await user.getIdToken();
+        // console.log("Logged in user token :" + token);
       });
-    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+    return () => unregisterAuthObserver();
   }, []);
 
   return (
@@ -180,6 +193,11 @@ function Login(props) {
                     >
                       Login
                     </button>
+
+                    <StyledFirebaseAuth
+                      uiConfig={uiConfig}
+                      firebaseAuth={firebase.auth()}
+                    />
 
                     <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
                       Don't have an account?
