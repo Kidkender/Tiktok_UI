@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* button,
+[type="button"] {
+  background-color: #3b71ca;
+} */
+
+/* @css {
+  .register {
+    @apply text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700
+  }
+} */
+
+.register {
+  @apply transition duration-150 ease-in-out;
+}
+.blue_button {
+  background-color: #3b71ca;
+}
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+}
+
+@layer components {
+  .heroButton {
+    @apply text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700;
+  }
+}
+.sidebar-login {
+  height: 800px;
+  float: left;
+}
+
+.content-login {
+  width: 70%;
+}
