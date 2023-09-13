@@ -1,11 +1,11 @@
 import Tippy from "@tippyjs/react/headless";
-import MenuItem from "./MenuItem";
 import classNames from "classnames/bind";
-import styles from "./Menu.module.scss";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Header from "./Header";
-import { useState } from "react";
-import PropTypes from "prop-types";
+import styles from "./Menu.module.scss";
+import MenuItem from "./MenuItem";
 
 const cx = classNames.bind(styles);
 
@@ -16,9 +16,10 @@ function Menu({
   items = [],
   hideOnClick = false,
   onChange = defaultFunction,
+  onLogoutClick = defaultFunction,
 }) {
   const [history, setHistory] = useState([{ data: items }]);
-
+  const [isLogout, setIsLogout] = useState(false);
   const current = history[history.length - 1];
 
   const renderItems = () => {
@@ -34,7 +35,13 @@ function Menu({
             } else {
               onChange(item);
             }
+            if (item.title === "Logout") {
+              console.log(item.title);
+              setIsLogout(true);
+              return onLogoutClick(true);
+            }
           }}
+          // onLogoutClick={() => handleLogout()}
         />
       );
     });
@@ -43,7 +50,11 @@ function Menu({
   const handleBack = () => {
     setHistory((prev) => prev.slice(0, prev.length - 1));
   };
-
+  const handleLogout = () => {
+    if (isLogout) {
+      return onLogoutClick(true);
+    }
+  };
   const renderResult = (attrs) => (
     <div className={cx("menu-list")} tabIndex={1} {...attrs}>
       <PopperWrapper className={cx("menu-popper")}>
@@ -79,6 +90,7 @@ Menu.propTypes = {
   items: PropTypes.array,
   hideOnClick: PropTypes.bool,
   onChange: PropTypes.func,
+  onLogoutClick: PropTypes.func,
 };
 
 export default Menu;
